@@ -14,8 +14,6 @@ async function bootstrap() {
     },
   );
   await app.listen();
-  console.log(
-    'Microservicio AUTH MOCK está escuchando mensajes de Redis..123123',
-  );
+  console.log('Microservicio AUTH MOCK está escuchando mensajes de Redis...');
 }
 bootstrap();

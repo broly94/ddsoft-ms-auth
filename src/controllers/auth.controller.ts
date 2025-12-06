@@ -5,7 +5,7 @@ import { MessagePattern } from '@nestjs/microservices';
 export class AuthController {
   @MessagePattern({ cmd: 'login' })
   login(data: any): any {
-    console.log('--- MENSAJE RECIBIDO DEL GATEWAY ---');
+    console.log('--- MENSAJE RECIBIDO DEL GATEWAY v0 ---');
     console.log('Datos de login recibidos:', data);
     return {
       status: 'ok',
