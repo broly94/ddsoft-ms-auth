@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { AppModule } from '@/app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
@@ -14,8 +14,6 @@ async function bootstrap() {
     },
   );
   await app.listen();
-  console.log(
-    'Microservicio AUTH MOCK está escuchando mensajes de Redis...123',
-  );
+  console.log('Microservicio AUTH MOCK está escuchando mensajes de Redis...');
 }
 bootstrap();
