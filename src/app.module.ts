@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { AuthController } from '@/controllers/auth.controller';
 import { AuthService } from '@/services/auth.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { UserService } from '@/services/user.service';
 import { User } from '@/entities/user.entity';
@@ -27,9 +27,16 @@ const ENV = process.env.NODE_ENV;
       synchronize: true,
       autoLoadEntities: true,
     }),
-    JwtModule.register({
-      secret: 'SUPER_SECRETO_PARA_PROYECTO',
-      signOptions: { expiresIn: '1d' },
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        secret: configService.get<string>('JWT_SECRET'),
+        signOptions: {
+          // cast to any to satisfy JwtModuleOptions typing (accepts number | StringValue | undefined)
+          expiresIn: configService.get<string>('JWT_EXPIRATION') as any,
+        },
+      }),
     }),
     TypeOrmModule.forFeature([User]),
   ],

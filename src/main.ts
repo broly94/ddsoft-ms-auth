@@ -1,6 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '@/app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { RpcValidationPipe } from '@/pipes/rpc-validation.pipe';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
@@ -13,7 +15,10 @@ async function bootstrap() {
       },
     },
   );
+
+  app.useGlobalPipes(new RpcValidationPipe());
+
   await app.listen();
-  console.log('Microservicio AUTH MOCK está escuchando mensajes de Redis...');
+  console.log('Microservicio auth está escuchando mensajes de Redis...');
 }
 bootstrap();

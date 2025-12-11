@@ -1,15 +1,18 @@
-import { UserRole } from '@/entities/user.entity';
 import {
   IsBoolean,
   IsEmail,
   IsEnum,
+  IsNumber,
   IsOptional,
   IsString,
   MinLength,
 } from 'class-validator';
+import { UserRole } from '@/entities/user.entity';
 
-// DTO para la actualización parcial de usuarios (solo datos administrativos)
-export class UpdateUserDto {
+export class UpdateUserRequestDto {
+  @IsNumber()
+  id: number;
+
   @IsOptional()
   @IsEmail({}, { message: 'El email debe ser una dirección de correo válida.' })
   email?: string;
